@@ -36,6 +36,10 @@ public class ToDoList {
         return mDateTimeCreated.getTime();
     }
 
+    public List<ToDoItem> getToDoList() {
+        return mToDoList;
+    }
+
     public void setTitle(String mTitle) {
         this.mTitle = mTitle;
     }

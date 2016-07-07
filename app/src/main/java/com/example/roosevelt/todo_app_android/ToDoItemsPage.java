@@ -9,8 +9,11 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import java.util.List;
+
 public class ToDoItemsPage extends AppCompatActivity {
     RecyclerView mRecyclerView;
+    List<ToDoItem> mToDoList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +26,10 @@ public class ToDoItemsPage extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(layoutManager);
 
+        mToDoList = ToDoData.getInstance().mToDoLists.get(getIntent().getIntExtra("listIndex", 0)).getToDoList();
 
+        ToDoItemRecyclerViewAdapter adapter = new ToDoItemRecyclerViewAdapter(mToDoList);
+        mRecyclerView.setAdapter(adapter);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

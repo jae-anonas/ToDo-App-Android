@@ -41,7 +41,7 @@ public class ToDoListRecyclerViewAdapter extends RecyclerView.Adapter<ToDoListVi
                 //open its list of todos
                 //for now, just open the activity
                 Intent intent = new Intent(view.getContext(), ToDoItemsPage.class);
-                intent.putExtra("date", toDoList.getDateAsString());
+                intent.putExtra("listIndex", pos);
                 view.getContext().startActivity(intent);
 
                 Toast.makeText(view.getContext(), String.valueOf(toDoList.getDateAsLong()), Toast.LENGTH_SHORT).show();

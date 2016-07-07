@@ -32,4 +32,8 @@ public class ToDoData {
         mToDoLists.add(new ToDoList("Reminder", todos));
         mToDoLists.add(new ToDoList("Other stuff", todos));
     }
+
+    public List<ToDoItem> getToDoItems(int i){
+        return mToDoLists.get(i).getToDoList();
+    }
 }
