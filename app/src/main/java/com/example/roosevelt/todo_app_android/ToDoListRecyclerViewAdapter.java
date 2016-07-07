@@ -46,6 +46,13 @@ public class ToDoListRecyclerViewAdapter extends RecyclerView.Adapter<ToDoListVi
 
             }
         });
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                Toast.makeText(view.getContext(), "Long clicked!", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        });
 
     }
 

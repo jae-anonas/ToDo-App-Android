@@ -55,6 +55,7 @@ public class ToDoItemsPage extends AppCompatActivity {
         final EditText userInput = (EditText) v.findViewById(R.id.listname);
         userInput.setHint("Enter task here");
         builder.setView(v)
+                .setTitle("Create a new task")
                 .setPositiveButton("ADD", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
