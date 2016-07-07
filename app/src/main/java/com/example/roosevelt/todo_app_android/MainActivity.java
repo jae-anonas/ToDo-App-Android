@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView mRecyclerView;
     ToDoListRecyclerViewAdapter adapter;
     List<ToDoList> toDoLists;
+    ToDoData data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,15 +28,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main_wrapper);
 
         //Initialize data
-        ToDoData data = ToDoData.getInstance();
+        data = ToDoData.getInstance();
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview_lists);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
         mRecyclerView.setLayoutManager(layoutManager);
 
-        toDoLists = data.mToDoLists;
-
-        adapter = new ToDoListRecyclerViewAdapter(toDoLists);
+        adapter = new ToDoListRecyclerViewAdapter(data.mToDoLists);
         mRecyclerView.setAdapter(adapter);
 
 
@@ -58,12 +57,14 @@ public class MainActivity extends AppCompatActivity {
         LayoutInflater inflater = MainActivity.this.getLayoutInflater();
         View v = inflater.inflate(R.layout.dialog_get_title_layout, null);
         final EditText userInput = (EditText) v.findViewById(R.id.listname);
+        userInput.setHint("Enter name of list here");
         builder.setView(v)
                 .setPositiveButton("ADD", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         //code for adding to ToDoList
-                        toDoLists.add(new ToDoList(userInput.getText().toString()));
+                        ToDoList toDoList = new ToDoList(userInput.getText().toString());
+                        addToDoList(toDoList);
                         adapter.notifyDataSetChanged();
                     }
                 })
@@ -74,5 +75,10 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
         return builder.create();
+    }
+
+
+    private void addToDoList(ToDoList list){
+        data.mToDoLists.add(list);
     }
 }

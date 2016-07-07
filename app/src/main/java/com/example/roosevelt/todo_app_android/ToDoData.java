@@ -29,8 +29,17 @@ public class ToDoData {
         todos.add(new ToDoItem("Develop apps"));
         todos.add(new ToDoItem("Sleep"));
 
+        List<ToDoItem> todos2 = new LinkedList<>();
+        todos.add(new ToDoItem("Eat breakfast"));
+        todos.add(new ToDoItem("Eat lunch"));
+        todos.add(new ToDoItem("Program project"));
+        todos.add(new ToDoItem("Eat snacks"));
+        todos.add(new ToDoItem("Eat dinner"));
+        todos.add(new ToDoItem("Develop apps"));
+        todos.add(new ToDoItem("Sleep"));
+
         mToDoLists.add(new ToDoList("Reminder", todos));
-        mToDoLists.add(new ToDoList("Other stuff", todos));
+        mToDoLists.add(new ToDoList("Other stuff", todos2));
     }
 
     public List<ToDoItem> getToDoItems(int i){

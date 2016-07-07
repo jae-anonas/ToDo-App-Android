@@ -44,7 +44,6 @@ public class ToDoListRecyclerViewAdapter extends RecyclerView.Adapter<ToDoListVi
                 intent.putExtra("listIndex", pos);
                 view.getContext().startActivity(intent);
 
-                Toast.makeText(view.getContext(), String.valueOf(toDoList.getDateAsLong()), Toast.LENGTH_SHORT).show();
             }
         });
 
