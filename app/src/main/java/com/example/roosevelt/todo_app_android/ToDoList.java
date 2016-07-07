@@ -17,6 +17,12 @@ public class ToDoList {
         mDateTimeCreated = new Date();
     }
 
+    public ToDoList(String mTitle, List<ToDoItem> items) {
+        this.mTitle = mTitle;
+        mToDoList = items;
+        mDateTimeCreated = new Date();
+    }
+
     public String getTitle() {
         return mTitle;
     }
@@ -24,6 +30,10 @@ public class ToDoList {
     public String getDateAsString(){
         SimpleDateFormat formatter = new SimpleDateFormat("EEE, dd MMM yyyy");
         return formatter.format(mDateTimeCreated);
+    }
+
+    public long getDateAsLong(){
+        return mDateTimeCreated.getTime();
     }
 
     public void setTitle(String mTitle) {

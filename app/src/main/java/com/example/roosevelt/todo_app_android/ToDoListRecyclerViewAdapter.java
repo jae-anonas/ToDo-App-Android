@@ -31,7 +31,7 @@ public class ToDoListRecyclerViewAdapter extends RecyclerView.Adapter<ToDoListVi
     @Override
     public void onBindViewHolder(ToDoListViewHolder holder, int position) {
         final int pos = position;
-        ToDoList toDoList = mToDoLists.get(pos);
+        final ToDoList toDoList = mToDoLists.get(pos);
         holder.mTitleView.setText(toDoList.getTitle());
         holder.mDescriptionView.setText(toDoList.getDateAsString());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -40,6 +40,7 @@ public class ToDoListRecyclerViewAdapter extends RecyclerView.Adapter<ToDoListVi
                 //open its list of todos
                 //for now, just open the activity
                 Intent intent = new Intent(view.getContext(), ToDoItemsPage.class);
+                intent.putExtra("date", toDoList.getDateAsString());
                 view.getContext().startActivity(intent);
             }
         });

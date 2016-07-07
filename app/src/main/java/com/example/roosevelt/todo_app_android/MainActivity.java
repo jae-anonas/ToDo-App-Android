@@ -16,6 +16,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Initialize data
+        ToDoData data = ToDoData.getInstance();
+
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview_lists);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
         mRecyclerView.setLayoutManager(layoutManager);
@@ -28,7 +31,9 @@ public class MainActivity extends AppCompatActivity {
         toDoLists.add(new ToDoList("To do list 5"));
         toDoLists.add(new ToDoList("To do list 6"));
 
-        ToDoListRecyclerViewAdapter adapter = new ToDoListRecyclerViewAdapter(toDoLists);
+        List<ToDoList> toDoLists2 = data.mToDoLists;
+
+        ToDoListRecyclerViewAdapter adapter = new ToDoListRecyclerViewAdapter(toDoLists2);
         mRecyclerView.setAdapter(adapter);
 
     }
