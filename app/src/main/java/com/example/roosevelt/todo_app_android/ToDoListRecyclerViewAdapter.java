@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -42,6 +43,8 @@ public class ToDoListRecyclerViewAdapter extends RecyclerView.Adapter<ToDoListVi
                 Intent intent = new Intent(view.getContext(), ToDoItemsPage.class);
                 intent.putExtra("date", toDoList.getDateAsString());
                 view.getContext().startActivity(intent);
+
+                Toast.makeText(view.getContext(), String.valueOf(toDoList.getDateAsLong()), Toast.LENGTH_SHORT).show();
             }
         });
 

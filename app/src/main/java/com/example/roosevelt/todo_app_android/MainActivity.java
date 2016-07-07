@@ -1,20 +1,30 @@
 package com.example.roosevelt.todo_app_android;
 
+import android.content.DialogInterface;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import java.util.LinkedList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     RecyclerView mRecyclerView;
+    ToDoListRecyclerViewAdapter adapter;
+    List<ToDoList> toDoLists;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_wrapper);
 
         //Initialize data
         ToDoData data = ToDoData.getInstance();
@@ -23,18 +33,46 @@ public class MainActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
         mRecyclerView.setLayoutManager(layoutManager);
 
-        List<ToDoList> toDoLists = new LinkedList<>();
-        toDoLists.add(new ToDoList("To do list 1"));
-        toDoLists.add(new ToDoList("To do list 2"));
-        toDoLists.add(new ToDoList("To do list 3"));
-        toDoLists.add(new ToDoList("To do list 4"));
-        toDoLists.add(new ToDoList("To do list 5"));
-        toDoLists.add(new ToDoList("To do list 6"));
+        toDoLists = data.mToDoLists;
 
-        List<ToDoList> toDoLists2 = data.mToDoLists;
-
-        ToDoListRecyclerViewAdapter adapter = new ToDoListRecyclerViewAdapter(toDoLists2);
+        adapter = new ToDoListRecyclerViewAdapter(toDoLists);
         mRecyclerView.setAdapter(adapter);
 
+
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+                //insert code for adding ToDoList
+                getUserInput().show();
+            }
+        });
+
+    }
+
+    private AlertDialog getUserInput(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        LayoutInflater inflater = MainActivity.this.getLayoutInflater();
+        View v = inflater.inflate(R.layout.dialog_get_title_layout, null);
+        final EditText userInput = (EditText) v.findViewById(R.id.listname);
+        builder.setView(v)
+                .setPositiveButton("ADD", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        //code for adding to ToDoList
+                        toDoLists.add(new ToDoList(userInput.getText().toString()));
+                        adapter.notifyDataSetChanged();
+                    }
+                })
+                .setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+                });
+        return builder.create();
     }
 }
