@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">ToDo-App-Android</string>
     <string name="title_activity_to_do_items_page">ToDoItemsPage</string>
+
+    <string-array name="colors">
+        <item name="green">Green</item>
+        <item name="yellow">Yellow</item>
+        <item name="red">Red</item>
+    </string-array>
 </resources>

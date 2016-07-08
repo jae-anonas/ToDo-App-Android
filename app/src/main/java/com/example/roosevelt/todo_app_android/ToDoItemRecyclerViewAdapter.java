@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.lang.reflect.Array;
 import java.util.List;
@@ -43,6 +44,7 @@ public class ToDoItemRecyclerViewAdapter extends RecyclerView.Adapter<ToDoItemVi
 //        holder.mDescriptionView.setText(todo.getDateTimeCreated().toString());
         holder.mDescriptionView.setText(todo.getDescription());
         holder.mCheckBoxStatus.setChecked(todo.isDone());
+        holder.mImageView.setBackgroundResource(todo.getColor());
         holder.mCheckBoxStatus.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -57,6 +59,12 @@ public class ToDoItemRecyclerViewAdapter extends RecyclerView.Adapter<ToDoItemVi
             public boolean onLongClick(View view) {
                 editListDetail(todo, view).show();
                 return false;
+            }
+        });
+        holder.mImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setTagColor(todo, view).show();
             }
         });
     }
@@ -93,7 +101,6 @@ public class ToDoItemRecyclerViewAdapter extends RecyclerView.Adapter<ToDoItemVi
                         else{
                             //make toast
                         }
-
                     }
                 })
                 .setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
@@ -111,5 +118,34 @@ public class ToDoItemRecyclerViewAdapter extends RecyclerView.Adapter<ToDoItemVi
                     }
                 });
         return builder.create();
+    }
+
+    private AlertDialog setTagColor(final ToDoItem toDo, final View view){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+        builder.setTitle("Choose a color Tag")
+                .setItems(R.array.colors, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Toast.makeText(view.getContext(), String.valueOf(i), Toast.LENGTH_SHORT).show();
+                        switch(i){
+                            case 0:
+                                toDo.setColor(R.color.green);
+                                break;
+                            case 1:
+                                toDo.setColor(R.color.yellow);
+                                break;
+                            case 2:
+                                toDo.setColor(R.color.red);
+                                break;
+                            default:
+                                toDo.setColor(R.color.green);
+                        }
+                        notifyDataSetChanged();
+                    }
+                });
+
+        return builder.create();
+
     }
 }

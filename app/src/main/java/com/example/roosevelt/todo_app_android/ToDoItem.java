@@ -13,12 +13,14 @@ public class ToDoItem {
     private String mDescription;
     private Date mDateTimeCreated;
     private Date mDateTimeDone;
+    private int mColor;
 
     public ToDoItem(String mToDo) {
         this.mToDo = mToDo;
         this.mDescription = "";
         this.mStatus = false;
         this.mDateTimeCreated = new Date();
+        this.mColor = R.color.green;
     }
 
     public ToDoItem(String mToDo, String mDesc) {
@@ -26,6 +28,14 @@ public class ToDoItem {
         this.mDescription = mDesc;
         this.mStatus = false;
         this.mDateTimeCreated = new Date();
+        this.mColor = R.color.green;
+    }
+    public ToDoItem(String mToDo, String mDesc, int mColor) {
+        this.mToDo = mToDo;
+        this.mDescription = mDesc;
+        this.mStatus = false;
+        this.mDateTimeCreated = new Date();
+        this.mColor = mColor;
     }
 
     public String getToDo() {
@@ -44,6 +54,14 @@ public class ToDoItem {
         if (mStatus)
             mDateTimeDone = new Date();
         this.mStatus = mStatus;
+    }
+
+    public int getColor() {
+        return mColor;
+    }
+
+    public void setColor(int mColor) {
+        this.mColor = mColor;
     }
 
     public String getDescription() {

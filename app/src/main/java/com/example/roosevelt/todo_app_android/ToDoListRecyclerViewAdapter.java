@@ -99,14 +99,9 @@ public class ToDoListRecyclerViewAdapter extends RecyclerView.Adapter<ToDoListVi
         return builder.create();
     }
 
-
-    @Override
     public int getItemCount() {
         return mToDoLists.size();
     }
 
-    private void removeList(int i){
-        mToDoLists.remove(i);
-    }
 
 }
