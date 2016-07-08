@@ -1,11 +1,14 @@
 package com.example.roosevelt.todo_app_android;
 
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 
 import java.lang.reflect.Array;
 import java.util.List;
@@ -35,18 +38,25 @@ public class ToDoItemRecyclerViewAdapter extends RecyclerView.Adapter<ToDoItemVi
     @Override
     public void onBindViewHolder(ToDoItemViewHolder holder, int position) {
         final int pos = position;
-        ToDoItem todo = mToDoItems.get(pos);
+        final ToDoItem todo = mToDoItems.get(pos);
         holder.mTitleView.setText(todo.getToDo());
-        holder.mDescriptionView.setText(todo.getDateTimeCreated().toString());
+//        holder.mDescriptionView.setText(todo.getDateTimeCreated().toString());
+        holder.mDescriptionView.setText(todo.getDescription());
         holder.mCheckBoxStatus.setChecked(todo.isDone());
         holder.mCheckBoxStatus.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                ToDoItem item = mToDoItems.get(pos);
-                boolean selected = !item.isDone();
+                boolean selected = !todo.isDone();
                 CheckBox cbo = (CheckBox) compoundButton;
                 cbo.setChecked(selected);
-                item.setStatus(selected);
+                todo.setStatus(selected);
+            }
+        });
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                editListDetail(todo, view).show();
+                return false;
             }
         });
     }
@@ -54,5 +64,52 @@ public class ToDoItemRecyclerViewAdapter extends RecyclerView.Adapter<ToDoItemVi
     @Override
     public int getItemCount() {
         return mToDoItems.size();
+    }
+
+
+    private AlertDialog editListDetail(final ToDoItem toDoItem, View view){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+        LayoutInflater inflater = LayoutInflater.from(view.getContext());
+        View v = inflater.inflate(R.layout.dialog_edit_delete_item, null);
+        final EditText userInputNewTitle = (EditText) v.findViewById(R.id.title);
+        final EditText userInputNewDesc = (EditText) v.findViewById(R.id.desc);
+        userInputNewTitle.setText(toDoItem.getToDo());
+        userInputNewDesc.setText(toDoItem.getDescription());
+        builder.setView(v)
+                .setTitle("Edit list name")
+                .setPositiveButton("SAVE", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        //code for adding to ToDoList
+                        String listTitle = userInputNewTitle.getText().toString();
+                        String listDesc = userInputNewDesc.getText().toString();
+                        if (!listTitle.trim().equals("")){
+                            //edit list name
+                            toDoItem.setToDo(listTitle);
+                            toDoItem.setDescription(listDesc);
+                            notifyDataSetChanged();
+                        }
+                        else{
+                            //make toast
+                        }
+
+                    }
+                })
+                .setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+                })
+                .setNeutralButton("DELETE", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        //delete ToDoList
+                        mToDoItems.remove(toDoItem);
+                        notifyDataSetChanged();
+                    }
+                });
+        return builder.create();
     }
 }

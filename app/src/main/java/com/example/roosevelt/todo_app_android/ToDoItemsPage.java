@@ -31,8 +31,9 @@ public class ToDoItemsPage extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(layoutManager);
 
-        mToDoList = ToDoData.getInstance().mToDoLists.get(getIntent().getIntExtra("listIndex", 0));
-
+        //get list of to-do items from selected ToDoList object
+        int index = getIntent().getIntExtra("listIndex", 0);
+        mToDoList = ToDoData.getInstance().mToDoLists.get(index);
 
         adapter = new ToDoItemRecyclerViewAdapter(mToDoList.getToDoList());
         mRecyclerView.setAdapter(adapter);
@@ -42,8 +43,8 @@ public class ToDoItemsPage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 getUserInput().show();
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
             }
         });
     }
@@ -51,18 +52,22 @@ public class ToDoItemsPage extends AppCompatActivity {
     private AlertDialog getUserInput(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = ToDoItemsPage.this.getLayoutInflater();
-        View v = inflater.inflate(R.layout.dialog_get_title_layout, null);
-        final EditText userInput = (EditText) v.findViewById(R.id.listname);
-        userInput.setHint("Enter task here");
+        View v = inflater.inflate(R.layout.dialog_get_title_desc_layout, null);
+        final EditText userInputTaskTitle = (EditText) v.findViewById(R.id.todoname);
+        final EditText userInputTaskDesc = (EditText) v.findViewById(R.id.tododesc);
         builder.setView(v)
                 .setTitle("Create a new task")
                 .setPositiveButton("ADD", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         //code for adding to ToDoList
-                        ToDoItem toDoItem = new ToDoItem(userInput.getText().toString());
-                        addToDoList(toDoItem);
-                        adapter.notifyDataSetChanged();
+                        String taskTitle = userInputTaskTitle.getText().toString();
+                        String taskDesc = userInputTaskDesc.getText().toString();
+                        if (!taskTitle.trim().equals("")){
+                            ToDoItem toDoItem = new ToDoItem(taskTitle, taskDesc);
+                            addToDoList(toDoItem);
+                            adapter.notifyDataSetChanged();
+                        }
                     }
                 })
                 .setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {

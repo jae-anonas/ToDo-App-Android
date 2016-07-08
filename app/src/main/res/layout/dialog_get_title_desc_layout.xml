@@ -4,7 +4,7 @@
     android:layout_height="wrap_content">
 
     <EditText
-        android:id="@+id/listname"
+        android:id="@+id/todoname"
         android:inputType="textEmailAddress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -12,5 +12,15 @@
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"
         android:layout_marginBottom="4dp"
-        android:hint="Enter list name" />
+        android:hint="Enter task" />
+    <EditText
+        android:id="@+id/tododesc"
+        android:inputType="textEmailAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginBottom="4dp"
+        android:hint="Enter description" />
 </LinearLayout>

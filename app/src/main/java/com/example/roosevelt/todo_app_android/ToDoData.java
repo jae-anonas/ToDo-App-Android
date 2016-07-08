@@ -21,22 +21,22 @@ public class ToDoData {
         mToDoLists = new LinkedList<>();
 
         List<ToDoItem> todos = new LinkedList<>();
-        todos.add(new ToDoItem("Eat breakfast"));
-        todos.add(new ToDoItem("Eat lunch"));
-        todos.add(new ToDoItem("Program project"));
-        todos.add(new ToDoItem("Eat snacks"));
-        todos.add(new ToDoItem("Eat dinner"));
-        todos.add(new ToDoItem("Develop apps"));
-        todos.add(new ToDoItem("Sleep"));
+        todos.add(new ToDoItem("Eat breakfast", "Maybe now?"));
+        todos.add(new ToDoItem("Eat lunch", "At 12NN"));
+        todos.add(new ToDoItem("Program project", "project.this"));
+        todos.add(new ToDoItem("Eat snacks", "when Jane offers you some"));
+        todos.add(new ToDoItem("Eat dinner", "or probably not"));
+        todos.add(new ToDoItem("Develop apps", "for GA"));
+        todos.add(new ToDoItem("Sleep", "until you want to"));
 
         List<ToDoItem> todos2 = new LinkedList<>();
-        todos.add(new ToDoItem("Eat breakfast"));
-        todos.add(new ToDoItem("Eat lunch"));
-        todos.add(new ToDoItem("Program project"));
-        todos.add(new ToDoItem("Eat snacks"));
-        todos.add(new ToDoItem("Eat dinner"));
-        todos.add(new ToDoItem("Develop apps"));
-        todos.add(new ToDoItem("Sleep"));
+        todos2.add(new ToDoItem("Eat breakfast", "But cook it first!"));
+        todos2.add(new ToDoItem("Eat lunch"));
+        todos2.add(new ToDoItem("Program project"));
+        todos2.add(new ToDoItem("Eat snacks"));
+        todos2.add(new ToDoItem("Eat dinner"));
+        todos2.add(new ToDoItem("Develop apps"));
+        todos2.add(new ToDoItem("Sleep"));
 
         mToDoLists.add(new ToDoList("Reminder", todos));
         mToDoLists.add(new ToDoList("Other stuff", todos2));
