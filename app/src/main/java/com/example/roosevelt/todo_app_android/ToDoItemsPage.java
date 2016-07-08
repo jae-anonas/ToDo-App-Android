@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -33,12 +34,15 @@ public class ToDoItemsPage extends AppCompatActivity {
 
         //get list of to-do items from selected ToDoList object
         int index = getIntent().getIntExtra("listIndex", 0);
+        String title = getIntent().getStringExtra("title");
+        getSupportActionBar().setTitle(title);
         mToDoList = ToDoData.getInstance().mToDoLists.get(index);
 
         adapter = new ToDoItemRecyclerViewAdapter(mToDoList.getToDoList());
         mRecyclerView.setAdapter(adapter);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setAlpha(0.45f);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -52,7 +56,7 @@ public class ToDoItemsPage extends AppCompatActivity {
     private AlertDialog getUserInput(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = ToDoItemsPage.this.getLayoutInflater();
-        View v = inflater.inflate(R.layout.dialog_get_title_desc_layout, null);
+        final View v = inflater.inflate(R.layout.dialog_get_title_desc_layout, null);
         final EditText userInputTaskTitle = (EditText) v.findViewById(R.id.todoname);
         final EditText userInputTaskDesc = (EditText) v.findViewById(R.id.tododesc);
         builder.setView(v)
@@ -67,6 +71,11 @@ public class ToDoItemsPage extends AppCompatActivity {
                             ToDoItem toDoItem = new ToDoItem(taskTitle, taskDesc);
                             addToDoList(toDoItem);
                             adapter.notifyDataSetChanged();
+                        }
+                        else {
+                            Toast.makeText(v.getRootView().getContext(), "You need a title", Toast.LENGTH_SHORT);
+//                            Snackbar.make(v.getRootView(),"You need a title", Snackbar.LENGTH_SHORT)
+//                                    .setAction("Action", null).show();
                         }
                     }
                 })

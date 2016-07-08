@@ -10,14 +10,14 @@ import android.widget.TextView;
  */
 public class ToDoListViewHolder extends RecyclerView.ViewHolder {
 
-    public ImageView mImageView;
+//    public ImageView mImageView;
     public TextView mTitleView;
     public TextView mDescriptionView;
 
     public ToDoListViewHolder(View itemView) {
         super(itemView);
 
-        mImageView = (ImageView) itemView.findViewById(R.id.colorbox);
+//        mImageView = (ImageView) itemView.findViewById(R.id.colorbox);
         mTitleView = (TextView) itemView.findViewById(R.id.text1);
         mDescriptionView = (TextView) itemView.findViewById(R.id.text2);
     }

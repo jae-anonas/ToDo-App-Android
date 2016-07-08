@@ -46,6 +46,7 @@ public class ToDoListRecyclerViewAdapter extends RecyclerView.Adapter<ToDoListVi
                 //for now, just open the activity
                 Intent intent = new Intent(view.getContext(), ToDoItemsPage.class);
                 intent.putExtra("listIndex", pos);
+                intent.putExtra("title", toDoList.getTitle());
                 view.getContext().startActivity(intent);
 
             }
@@ -65,7 +66,7 @@ public class ToDoListRecyclerViewAdapter extends RecyclerView.Adapter<ToDoListVi
 
         AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
         LayoutInflater inflater = LayoutInflater.from(view.getContext());
-        View v = inflater.inflate(R.layout.dialog_edit_delete_list, null);
+        final View v = inflater.inflate(R.layout.dialog_edit_delete_list, null);
         final EditText userInputNewTitle = (EditText) v.findViewById(R.id.title);
         userInputNewTitle.setText(toDoList.getTitle());
         builder.setView(v)
@@ -79,6 +80,9 @@ public class ToDoListRecyclerViewAdapter extends RecyclerView.Adapter<ToDoListVi
                             //edit list name
                             toDoList.setTitle(listTitle);
                             notifyDataSetChanged();
+                        }
+                        else {
+                            Toast.makeText(v.getRootView().getContext(), "You need a title", Toast.LENGTH_SHORT);
                         }
                     }
                 })

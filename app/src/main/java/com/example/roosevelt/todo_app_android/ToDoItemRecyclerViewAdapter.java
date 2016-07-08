@@ -127,7 +127,6 @@ public class ToDoItemRecyclerViewAdapter extends RecyclerView.Adapter<ToDoItemVi
                 .setItems(R.array.colors, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        Toast.makeText(view.getContext(), String.valueOf(i), Toast.LENGTH_SHORT).show();
                         switch(i){
                             case 0:
                                 toDo.setColor(R.color.green);
